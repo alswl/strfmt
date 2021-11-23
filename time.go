@@ -55,6 +55,8 @@ func IsDateTime(str string) bool {
 const (
 	// RFC3339Millis represents a ISO8601 format to millis instead of to nanos
 	RFC3339Millis = "2006-01-02T15:04:05.000Z07:00"
+	// RFC3339_ANT_CODE represents antcode modified ISO8601 format
+	ISO8601_ANT_CODE = "2006-01-02T15:04:05+0700"
 	// RFC3339MillisNoColon represents a ISO8601 format to millis instead of to nanos
 	RFC3339MillisNoColon = "2006-01-02T15:04:05.000Z0700"
 	// RFC3339Micro represents a ISO8601 format to micro instead of to nano
@@ -77,7 +79,7 @@ var (
 	rxDateTime = regexp.MustCompile(DateTimePattern)
 
 	// DateTimeFormats is the collection of formats used by ParseDateTime()
-	DateTimeFormats = []string{RFC3339Micro, RFC3339MicroNoColon, RFC3339Millis, RFC3339MillisNoColon, time.RFC3339, time.RFC3339Nano, ISO8601LocalTime, ISO8601TimeWithReducedPrecision, ISO8601TimeWithReducedPrecisionLocaltime, ISO8601TimeUniversalSortableDateTimePattern}
+	DateTimeFormats = []string{RFC3339Micro, RFC3339MicroNoColon, RFC3339Millis, RFC3339MillisNoColon, time.RFC3339, time.RFC3339Nano, ISO8601LocalTime, ISO8601TimeWithReducedPrecision, ISO8601TimeWithReducedPrecisionLocaltime, ISO8601TimeUniversalSortableDateTimePattern, ISO8601_ANT_CODE}
 
 	// MarshalFormat sets the time resolution format used for marshaling time (set to milliseconds)
 	MarshalFormat = RFC3339Millis
