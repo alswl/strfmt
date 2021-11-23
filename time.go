@@ -55,8 +55,8 @@ func IsDateTime(str string) bool {
 const (
 	// RFC3339Millis represents a ISO8601 format to millis instead of to nanos
 	RFC3339Millis = "2006-01-02T15:04:05.000Z07:00"
-	// RFC3339_ANT_CODE represents antcode modified ISO8601 format
-	ISO8601_ANT_CODE = "2006-01-02T15:04:05+0700"
+	// RFC3339_ANT_CODE represents antcode modified ISO8601 format(after pattern replace fixed)
+	ISO8601_ANT_CODE = "2006-01-02T15:04:05+07:00"
 	// RFC3339MillisNoColon represents a ISO8601 format to millis instead of to nanos
 	RFC3339MillisNoColon = "2006-01-02T15:04:05.000Z0700"
 	// RFC3339Micro represents a ISO8601 format to micro instead of to nano
@@ -95,7 +95,9 @@ func ParseDateTime(data string) (DateTime, error) {
 		return NewDateTime(), nil
 	}
 	var lastError error
+	fixPattern := regexp.MustCompile(`(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+)(\d{2})(\d{2})`)
 	for _, layout := range DateTimeFormats {
+		data = fixPattern.ReplaceAllString(data, "$1$2:$3")
 		dd, err := time.Parse(layout, data)
 		if err != nil {
 			lastError = err
